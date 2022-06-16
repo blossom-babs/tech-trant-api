@@ -1,5 +1,5 @@
-function test(name:string){
-  return 'hello ' + name;
+function test(name: string) {
+  return "hello " + name;
 }
 
 export default test;

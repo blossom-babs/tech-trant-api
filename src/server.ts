@@ -1,14 +1,22 @@
 import express, { Request, Response, Application } from "express";
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+dotenv.config();
 
 const app: Application = express();
 const port = 8050;
 
+mongoose
+  .connect(process.env.MONGO_URL as string)
+  .then(() => {
+    console.log("connected to the db");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 app.get("/", (req: Request, res: Response) => {
-  res
-    .status(200)
-    .json({ Message: "Welcome to Tech Trant Brrrr" });
+  res.status(200).json({ Message: "Welcome to Tech Trant" });
 });
 
 app.get("*", (req: Request, res: Response) => {
