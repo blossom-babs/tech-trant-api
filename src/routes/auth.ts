@@ -13,15 +13,36 @@ const register = async (req: Request, res: Response) => {
       password: hashedPwd
     })
     const user = await data.save()
-    res.status(200).json(user)
+    const { password, ...info } = user._doc
+    res.status(200).json(info)
   } catch (error) {
-    console.log(error)
+    res.status(500).json(error)
+  }
+}
+
+const login = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) {
+      return res.status(400).json({ Message: 'Wrong credentials' })
+    }
+
+    const match = await bcrypt.compare(req.body.password + PEPPER, user.password)
+    if (!match) {
+      return res.status(400).json({ Message: 'Wrong credentials' })
+    }
+
+    const { password, ...info } = user._doc
+    return res.status(200).json(info)
+
+  } catch (error) {
     res.status(500).json(error)
   }
 }
 
 const AuthRoute = (app: Application) => {
   app.post('/api/v1/register', register)
+  app.post('/api/v1/login', login)
 }
 
 export default AuthRoute
