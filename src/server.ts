@@ -1,6 +1,7 @@
 import express, { Request, Response, Application } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import IndexRoute from "./routes";
 dotenv.config();
 
 const app: Application = express();
@@ -15,6 +16,7 @@ mongoose
     console.log(err);
   });
 
+app.use(IndexRoute)
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ Message: "Welcome to Tech Trant" });
 });
