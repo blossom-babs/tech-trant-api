@@ -2,7 +2,7 @@ import { Request, Response, Application } from "express";
 import AuthRoute from "./auth";
 
 const IndexRoute = (app: Application) => {
-  app.use(AuthRoute)
+  AuthRoute(app)
 }
 
 export default IndexRoute

@@ -6,7 +6,7 @@ dotenv.config();
 
 const app: Application = express();
 const port = 8050;
-
+app.use(express.json())
 mongoose
   .connect(process.env.MONGO_URL as string)
   .then(() => {
@@ -16,7 +16,7 @@ mongoose
     console.log(err);
   });
 
-app.use(IndexRoute)
+IndexRoute(app)
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ Message: "Welcome to Tech Trant" });
 });
