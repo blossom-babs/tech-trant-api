@@ -12,7 +12,7 @@ describe('User model', () => {
   })
   it('tests the email property', () => {
     const user = new User({email:'blossombab@gmail.com'})
-    expect(user.email).toBeUndefined()
+    expect(user.email).toBeDefined()
   })
   it('tests the password property', () => {
     const user = new User({password: 'p@$$w0rd!'})

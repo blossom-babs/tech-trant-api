@@ -15,3 +15,5 @@ a) use the mockgoose library to test the user models
 
 2. Put mongoose connection in its own file
 https://www.youtube.com/watch?v=7VNgjfmv_fE
+
+3. Research and write more comprehensive unit tests for models
