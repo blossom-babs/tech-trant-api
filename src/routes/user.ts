@@ -9,8 +9,8 @@ const update =async (req:Request, res:Response) => {
 }
 
 const UserRoute = (app: Application) => {
-  app.post('/api/v1/register', register)
-  app.post('/api/v1/login', login)
+  // app.post('/api/v1/register', register)
+  // app.post('/api/v1/login', login)
 }
 
 export default UserRoute
