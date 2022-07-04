@@ -7,11 +7,11 @@ const PostSchema = new mongoose.Schema(
 			required: true,
 			unique: true
 		},
-		desc: {
+		description: {
 			type: String,
 			required: true
 		},
-		username: {
+		author: {
 			type: String,
 			required: true,
 		},
