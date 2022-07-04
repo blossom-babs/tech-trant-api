@@ -28,7 +28,7 @@ const remove = async (req: Request, res: Response) => {
     return
   }
   try {
-    await Post.findByIdAndDelete(req.params.postId)
+    await post.delete()
     res.status(200).json({ Message: 'Post deleted' })
   } catch (error) {
     res.status(500).json(error)
@@ -37,8 +37,14 @@ const remove = async (req: Request, res: Response) => {
 
 // get all posts
 const index = async (req: Request, res: Response) => {
+  let posts;
   try {
-    const posts = await Post.find()
+    const category = req.query.category
+    if (category) {
+      posts = await Post.find({ categories: { $in: [category] } })
+    } else {
+      posts = await Post.find()
+    }
     res.status(200).json(posts)
   } catch (error) {
     res.status(500).json(error)
