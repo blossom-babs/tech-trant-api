@@ -57,8 +57,8 @@ const post = async (req: Request, res: Response) => {
 
 
 const PostRoute = (app: Application) => {
-  app.post('/api/v1/newPost/:id', create)
-  app.delete('/api/v1/removePost/:id', remove)
+  app.post('/api/v1/post/:id', create)
+  app.delete('/api/v1/post/:id', remove)
   app.get('/api/v1/posts', index)
   app.get('/api/v1/post/:postId', post)
 }
