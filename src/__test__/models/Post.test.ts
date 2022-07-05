@@ -19,8 +19,8 @@ afterEach(async () => {
   await dropDatabase()
 })
 
-describe('Category model', () => {
-  it('create and saves post successfully', async() => {
+describe('Post model', () => {
+  it('create and saves post', async() => {
     const post = new Post(postData)
     const data = await post.save()
     expect(data._id).toBeDefined()

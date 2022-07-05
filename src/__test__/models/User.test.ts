@@ -17,12 +17,8 @@ afterEach(async () => {
   await dropDatabase();
 });
 
-
-
-
-
 describe('User model', () => {
-  it('create and saves user successfully', async () => {
+  it('create and saves user ', async () => {
     const data = new User(userData)
     const user = await data.save()
     expect(user._id).toBeDefined()
