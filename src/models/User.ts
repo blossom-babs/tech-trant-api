@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { CallbackError } from 'mongoose';
 import bcrypt from 'bcrypt'
-const { PEPPER, SALT } = process.env
+const { SALT, PEPPER } = process.env
 
 const UserSchema = new mongoose.Schema({
 	username: {
@@ -21,26 +21,22 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	}
-}, {timestamps: true});
+}, { timestamps: true });
 
-UserSchema.pre('save', function(next) {
-	var user = this;
-
+UserSchema.pre('save', async function save(next) {
+	let user = this;
 	// only hash the password if it has been modified (or is new)
 	if (!user.isModified('password')) return next();
-
-	// generate a salt
-	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-			if (err) return next(err);
-
-			// hash the password using our new salt
-			bcrypt.hash(user.password, salt, function(err, hash) {
-					if (err) return next(err);
-					// override the cleartext password with the hashed one
-					user.password = hash;
-					next();
-			});
-	});
+	try {
+		user.password = await bcrypt.hash(user.password + PEPPER, Number(SALT));
+		return next()
+	} catch (error) {
+		return next(error as undefined | CallbackError)
+	}
 });
+
+UserSchema.methods.validatePassword = async function validatePassword(data: string) {
+	return bcrypt.compare(data + PEPPER, this.password);
+};
 
 export default mongoose.model('User', UserSchema);

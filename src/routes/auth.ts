@@ -1,16 +1,12 @@
 import User from "../models/User";
 import { Request, Response, Application } from "express";
-import bcrypt from 'bcrypt'
-
-const { PEPPER, SALT } = process.env
 
 const register = async (req: Request, res: Response) => {
   try {
-    const hashedPwd = await bcrypt.hash(req.body.password + PEPPER, Number(SALT))
     const data = new User({
       username: req.body.username,
       email: req.body.email,
-      password: hashedPwd
+      password: req.body.password
     })
     const user = await data.save()
     const { password, ...info } = user._doc
@@ -22,12 +18,12 @@ const register = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ email: req.body.email })
+    const user = await User.findOne({ username: req.body.username })
     if (!user) {
-      return res.status(400).json({ Message: 'Email not found' })
+      return res.status(400).json({ Message: 'Username not found' })
     }
 
-    const match = await bcrypt.compare(req.body.password + PEPPER, user.password)
+    const match = await user.validatePassword(req.body.password)
     if (!match) {
       return res.status(400).json({ Message: 'Wrong password' })
     }
