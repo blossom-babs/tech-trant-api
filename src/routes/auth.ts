@@ -1,7 +1,7 @@
 import User from "../models/User";
 import { Request, Response, Application } from "express";
 
-const register = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
   try {
     const data = new User({
       username: req.body.username,

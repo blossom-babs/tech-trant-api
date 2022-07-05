@@ -7,6 +7,7 @@ dotenv.config();
 const app: Application = express();
 const port = 8050;
 app.use(express.json())
+export default app;
 mongoose
   .connect(process.env.MONGO_URL as string)
   .then(() => {
@@ -29,4 +30,3 @@ app.get("*", (req: Request, res: Response) => {
 
 app.listen(port);
 
-export default app;
