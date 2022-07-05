@@ -1,7 +1,7 @@
 import User from "../../models/User";
 
-
-describe('User model', () => {
+fdescribe('User model', () => {
+  
   it('tests the username property of the', () => {
     const user = new User({username:"Bloom"})
     expect(user.username).toBe('Bloom')
