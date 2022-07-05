@@ -1,4 +1,4 @@
-import User from "../../models/User";
+import { User } from "../../models"
 import { dropCollections, dropDatabase, setUp } from '../../setup/db';
 
 const userData = {
@@ -13,14 +13,15 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  await dropCollections()
-  await dropDatabase()
-})
+  await dropCollections();
+  await dropDatabase();
+});
+
+
 
 
 
 describe('User model', () => {
-
   it('create and saves user successfully', async () => {
     const data = new User(userData)
     const user = await data.save()
