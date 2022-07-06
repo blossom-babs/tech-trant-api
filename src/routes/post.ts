@@ -47,7 +47,6 @@ const index = async (req: Request, res: Response) => {
     } else {
       posts = await Post.find()
     }
-    mongoose.connection.close();
     res.status(200).json(posts)
   } catch (error) {
     res.status(500).json(error)
