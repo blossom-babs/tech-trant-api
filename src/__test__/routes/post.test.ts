@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from '../../server';
+import app from '../../app';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error

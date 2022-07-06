@@ -1,7 +1,7 @@
 import { Request, Response, Application } from 'express';
 import mongoose from 'mongoose';
 import { Post, User } from "../models";
-import app from '../server';
+import app from '../app';
 
 // create post
 const create = async (req: Request, res: Response) => {
