@@ -7,9 +7,9 @@
     "lint": "eslint --fix --ext src",
     "prettier": "prettier --write src",
     "format": "npm run lint && npm run prettier",
-    "test": "npx tsc && set NODE_ENV=test && jasmine",
-    "test-jest": "npx tsc && set NODE_ENV=test && jest --runInBand --detectOpenHandles --forceExit ./dist/__test__/routes",
-    "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\" "
+    "test-models": "npx tsc && set NODE_ENV=test && jest --runInBand ./dist/__test__/models",
+    "test-routes": "npx tsc && set NODE_ENV=test && jest --forceExit  --detectOpenHandles ./dist/__test__/routes",
+    "watch": "tsc-watch --esModuleInterop src/app.ts --outDir ./dist --onSuccess \"node ./dist/app.js\" "
   },
   "keywords": [],
   "author": "",
@@ -32,7 +32,6 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
-    "@types/jasmine": "^4.0.3",
     "@types/jest": "^28.1.4",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/multer": "^1.4.7",
@@ -46,9 +45,6 @@
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-promise": "^6.0.0",
     "husky": "^8.0.1",
-    "jasmine": "^4.1.0",
-    "jasmine-spec-reporter": "^7.0.0",
-    "jasmine-ts": "^0.4.0",
     "prettier": "2.6.2",
     "supertest": "^6.2.4",
     "ts-node": "^10.8.0",

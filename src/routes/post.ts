@@ -1,5 +1,7 @@
 import { Request, Response, Application } from 'express';
+import mongoose from 'mongoose';
 import { Post, User } from "../models";
+import app from '../server';
 
 // create post
 const create = async (req: Request, res: Response) => {
@@ -45,6 +47,7 @@ const index = async (req: Request, res: Response) => {
     } else {
       posts = await Post.find()
     }
+    mongoose.connection.close();
     res.status(200).json(posts)
   } catch (error) {
     res.status(500).json(error)

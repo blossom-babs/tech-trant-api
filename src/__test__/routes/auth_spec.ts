@@ -1,7 +1,6 @@
 import supertest from "supertest";
 import app from '../../server';
 
-
 describe('Authentication routes', () => {
   const request = supertest(app)
   let originalTimeout: number;
