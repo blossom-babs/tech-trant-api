@@ -2,6 +2,12 @@ import mongoose, { CallbackError } from 'mongoose';
 import bcrypt from 'bcrypt'
 const { SALT, PEPPER } = process.env
 
+export type UserShape = {
+	username: string,
+	email: string,
+	password: string
+}
+
 const UserSchema = new mongoose.Schema({
 	username: {
 		type: String,

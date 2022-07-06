@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User, { UserShape } from "../models/User";
 import { Request, Response, Application } from "express";
 import bcrypt from 'bcrypt'
 
@@ -45,10 +45,22 @@ const find = async (req: Request, res: Response) => {
   }
 }
 
+const index = async (req: Request, res: Response) => {
+  try {
+    const user = await User.find()
+    console.log(user)
+    // const { password, ...otherInfo } = user
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 const UserRoute = (app: Application) => {
   app.put('/api/v1/update/:id', update)
   app.delete('/api/v1/delete/:id', destroy)
   app.get('/api/v1/find/:id', find)
+  app.get('/api/v1/users', index)
 }
 
 export default UserRoute

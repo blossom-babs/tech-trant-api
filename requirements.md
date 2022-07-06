@@ -1,19 +1,69 @@
-express
+# Endpoints
 
-dotenv
+> The development link is hosted on `http://localhost:8050/`
+## Users
 
-mongoose
+### POST /users
+Create new users. The following data is required to create a user:
+```
+{
+  username: "",
+  email: "",
+  password: ""
+}
+```
 
-multer for uploading images
+### GET /users
+Display all users that has been created.
 
-<!-- TO-DO -->
+### POST /login
+Login to the store with already existing user. The following data is required to authenticate a user:
+```
+{
+  firstName: "",
+  password: ""
+}
+```
 
-1. Create a method on the user model to hash the password
-https://javascript.plainenglish.io/unit-test-your-mongoose-model-using-jest-2daf2303c4bf
+### GET /users/:id
+Displays the user whose id matches the query. Only an authenticated user can view the details of another user.
 
-a) use the mockgoose library to test the user models
+---
 
-2. Put mongoose connection in its own file
-https://www.youtube.com/watch?v=7VNgjfmv_fE
+## Products
 
-3. Research and write more comprehensive unit tests for models
+### GET /products
+Displays all the products available in the store
+
+### POST /products
+Create new products in the store. (Only authenticated users can add new products to the store). The following data is required to create a product:
+```
+{
+  name: "",
+  price: "",
+  category: ""
+}
+```
+### GET /products/:id
+Displays the details of a single product in the store
+
+### GET /product/?cat
+Displays the products by their category
+
+## Orders
+
+### POST /orders
+Place an order on existing products in the store.
+
+Conditions: 
+1. User account must exist
+2. User must be logged in
+3. Products must exist in the database
+
+The following data is required to create an order;
+```
+"userId": "",
+"productId": "",
+"status": "", // can either be open or closed
+"quantity" : // expects a number
+```
