@@ -83,9 +83,9 @@ const update = async (req: Request, res: Response) => {
 
 
 const PostRoute = (app: Application) => {
+  app.get('/api/v1/posts', index)
   app.post('/api/v1/post/:userId', create)
   app.delete('/api/v1/post/:postId', remove)
-  app.get('/api/v1/posts', index)
   app.get('/api/v1/post/:postId', post)
   app.put('/api/v1/post/:postId', update)
 }

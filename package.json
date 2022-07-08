@@ -7,10 +7,9 @@
     "lint": "eslint --fix --ext src",
     "prettier": "prettier --write src",
     "format": "npm run lint && npm run prettier",
-    "test-models": "npx tsc && set NODE_ENV=test && jest --runInBand ./dist/__test__/models",
-    "test-routes": "npx tsc && set NODE_ENV=test && jest --forceExit  --detectOpenHandles ./dist/__test__/routes",
-    "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\" ",
-    "test:e2e": "jest --config ./test/jest-e2e.json --forceExit"
+    "test-models": "rm -rf dist && npx tsc && set NODE_ENV=test && jest --runInBand ./dist/__test__/models",
+    "test-routes": "rm -rf dist && npx tsc && set NODE_ENV=test && jest --forceExit  --detectOpenHandles ./dist/__test__/routes",
+    "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\" "
   },
   "keywords": [],
   "author": "",
@@ -22,6 +21,7 @@
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "jest": "^28.1.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^8.7.2",
     "mongoose": "^6.3.8",
