@@ -5,7 +5,7 @@ import app from '../app';
 
 // create post
 const create = async (req: Request, res: Response) => {
-  const user = await User.findById(req.params.userId)
+  const user = await User.findById(req.body.userId)
   const category = req.body.categories.split(',')
   try {
     const data = new Post({
@@ -84,9 +84,9 @@ const update = async (req: Request, res: Response) => {
 
 const PostRoute = (app: Application) => {
   app.get('/api/v1/posts', index)
-  app.post('/api/v1/post/:userId', create)
-  app.delete('/api/v1/post/:postId', remove)
+  app.post('/api/v1/posts', create)
   app.get('/api/v1/post/:postId', post)
+  app.delete('/api/v1/post/:postId', remove)
   app.put('/api/v1/post/:postId', update)
 }
 

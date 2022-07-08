@@ -57,10 +57,10 @@ const index = async (req: Request, res: Response) => {
 }
 
 const UserRoute = (app: Application) => {
+  app.get('/api/v1/users', index)
   app.put('/api/v1/update/:id', update)
   app.delete('/api/v1/delete/:id', destroy)
   app.get('/api/v1/find/:id', find)
-  app.get('/api/v1/users', index)
 }
 
 export default UserRoute
