@@ -8,7 +8,7 @@
     "prettier": "prettier --write src",
     "format": "npm run lint && npm run prettier",
     "test-models": "rm -rf dist && npx tsc && set NODE_ENV=test && jest --runInBand ./dist/__test__/models",
-    "test-routes": "rm -rf dist && npx tsc && set NODE_ENV=test && jest --forceExit  --detectOpenHandles ./dist/__test__/routes",
+    "test-routes": "rm -rf dist && npx tsc && set NODE_ENV=test && jest --detectOpenHandles ./dist/__test__/routes",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\" "
   },
   "keywords": [],
