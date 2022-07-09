@@ -2,10 +2,12 @@ import mongoose, { CallbackError } from 'mongoose';
 import bcrypt from 'bcrypt'
 const { SALT, PEPPER } = process.env
 
-export type UserShape = {
+export interface UserDocument extends mongoose.Document {
 	username: string,
 	email: string,
-	password: string
+	password: string,
+	createdAt: Date,
+	updatedAt: Date
 }
 
 const UserSchema = new mongoose.Schema({
@@ -30,8 +32,7 @@ const UserSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 UserSchema.pre('save', async function save(next) {
-	let user = this;
-	// only hash the password if it has been modified (or is new)
+	let user = this as UserDocument;
 	if (!user.isModified('password')) return next();
 	try {
 		user.password = await bcrypt.hash(user.password + PEPPER, Number(SALT));
@@ -45,4 +46,5 @@ UserSchema.methods.validatePassword = async function validatePassword(data: stri
 	return bcrypt.compare(data + PEPPER, this.password);
 };
 
-export default mongoose.model('User', UserSchema);
+const UserModel = mongoose.model("User", UserSchema)
+export default UserModel
