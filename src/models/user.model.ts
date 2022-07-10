@@ -42,7 +42,7 @@ UserSchema.pre('save', async function save(next) {
 	}
 });
 
-UserSchema.methods.validatePassword = async function validatePassword(data: string) {
+UserSchema.methods.validatePassword = async function validatePassword(data: string): Promise<Boolean> {
 	return bcrypt.compare(data + PEPPER, this.password);
 };
 

@@ -1,1 +1,3 @@
 ## Tech Trant
+
+<!-- currying javascript -->
