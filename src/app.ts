@@ -5,21 +5,11 @@ const app = express();
 
 app.use(express.json())
 
-IndexRoute(app)
 routes(app)
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ Message: "Welcome to Tech Trant" });
 });
-
-app.get("/api/v1/p", (req: Request, res: Response) => {
-  res.status(200).json({ Message: "Welcome to Tech Trant" });
-});
-
-app.post("/api/v1/p", (req: Request, res: Response) => {
-  res.status(200).json({ Message: "Welcome to Tech Trant" });
-});
-
 
 app.get("*", (req: Request, res: Response) => {
   res
