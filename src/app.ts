@@ -1,11 +1,12 @@
 import express, { Request, Response, Application } from "express";
+import routes from "./routes";
 import IndexRoute from "./routes";
-
 const app = express();
 
 app.use(express.json())
 
 IndexRoute(app)
+routes(app)
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ Message: "Welcome to Tech Trant" });
