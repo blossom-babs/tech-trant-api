@@ -1,9 +1,8 @@
 import app from "./app";
 import { connectDB, logger } from "./utils";
-import dotenv from "dotenv";
-dotenv.config();
+import config from 'config'
 
-const port = 8050 || process.env.PORT;
+const port = config.get<number>('port')
 
 const start = async () => {
   await connectDB()

@@ -1,6 +1,7 @@
 import express, { Request, Response, Application } from "express";
 import IndexRoute from "./routes";
-const app: Application = express();
+
+const app = express();
 
 app.use(express.json())
 
