@@ -1,5 +1,6 @@
 import { Response, Request, Express } from 'express';
 import { createUserHandler } from './controller';
+import { validateResource } from './middleware';
 
 const routes = (app: Express) => {
   app.post('/api/v1/users', createUserHandler)
