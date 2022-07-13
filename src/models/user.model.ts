@@ -1,13 +1,16 @@
 import mongoose, { CallbackError } from 'mongoose';
 import bcrypt from 'bcrypt'
-const { SALT, PEPPER } = process.env
+import config from 'config'
 
+const SALT = config.get<number>('SALT')
+const PEPPER = config.get<string>('PEPPER')
 export interface UserDocument extends mongoose.Document {
-	username: string,
-	email: string,
-	password: string,
-	createdAt: Date,
-	updatedAt: Date
+	username: string;
+	email: string;
+	password: string;
+	createdAt: Date;
+	updatedAt: Date;
+	validatePassword(candidatePassword: string): Promise<Boolean>
 }
 
 const UserSchema = new mongoose.Schema({
