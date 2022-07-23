@@ -1,17 +1,15 @@
-import mongoose from "mongoose";
-import logger from "./logger";
-import config from 'config'
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const connectDB = async () => {
-  const URL = config.get<string>('MONGO_URL')
-  try {
-    await mongoose.connect(URL);
-    logger.info('Connected to DB');
-  } catch (error) {
-    logger.error(error);
-    process.exit(1)
+	const URL = process.env.MONGO_URL as string;
+	try {
+		await mongoose.connect(URL);
+		console.log('Connected to DB');
+	} catch (error) {
+		console.error(error);
+	}
+};
 
-  }
-}
-
-export default connectDB
+export default connectDB;
