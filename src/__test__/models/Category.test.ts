@@ -14,7 +14,7 @@ afterEach(async () => {
   await dropDatabase()
 })
 
-describe('Category model', () => {
+describe.skip('Category model', () => {
   it('create and saves category', async () => {
     const category = new Category(categoryData)
     const data = await category.save()

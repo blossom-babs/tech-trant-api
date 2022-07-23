@@ -17,7 +17,7 @@ afterEach(async () => {
   await dropDatabase();
 });
 
-fdescribe('User model', () => {
+describe.skip('User model', () => {
   it('create and saves user ', async () => {
     const data = new User(userData)
     const user = await data.save()
