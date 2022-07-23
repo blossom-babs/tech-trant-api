@@ -1,7 +1,7 @@
+import mongoose  from 'mongoose';
 import supertest from "supertest";
 import app from '../../app'
 import { dropCollections, dropDatabase, setUp } from '../setup/db';
-
 
 describe('User', () => {
 
@@ -15,13 +15,15 @@ describe('User', () => {
     await dropDatabase()
   })
 
+  let userId = new mongoose.Types.ObjectId().toString();
 
   describe('Given the CORRECT input', () => {
     it('A user is ABLE to register', async () => {
       await supertest(app).post('/api/v1/register').send({
         email: "Koan@gmail.com",
         username: "koan",
-        password: "Koan1"
+        password: "Koan1",
+        _id: userId
       }).expect(200)
     })
   })
@@ -56,13 +58,22 @@ describe('User', () => {
   describe('Given that the user exists', () => {
     it('should dispay the available users', async () => {
       const res = await supertest(app).get('/api/v1/users')
-      console.log(res.body)
+      expect(res.status).toBe(200)
+      expect(res.body).toHaveLength(1)
+    })
+  })
+
+  describe('Given that the user exists', () => {
+    it('should be able to delete the  user', async () => {
+     const res =  await supertest(app).delete(`/api/v1/users/${userId}`).send({userId})
+      expect(res.body.Message).toBe('User has been deleted')
+    })
+  })
+
+  describe('Given that the user exists', () => {
+    it('should be able to update the user', async () => {
+     const res =  await supertest(app).put(`/api/v1/users/${userId}`).send({email: 'koan2@gmail.com', userId})
       expect(res.status).toBe(200)
     })
   })
-  // a user is able to sign up with email, password and username
-  // a user is able to sign up with correct password and user
-  // I can see all the users currently signed up
-  // a user can be deleted
-  // user details can be updated
 })
