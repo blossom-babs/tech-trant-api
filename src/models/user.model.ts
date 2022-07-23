@@ -1,17 +1,10 @@
 import mongoose, { CallbackError } from 'mongoose';
 import bcrypt from 'bcrypt'
-import config from 'config'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const SALT = config.get<number>('SALT')
-const PEPPER = config.get<string>('PEPPER')
-export interface UserDocument extends mongoose.Document {
-	username: string;
-	email: string;
-	password: string;
-	createdAt: Date;
-	updatedAt: Date;
-	validatePassword(candidatePassword: string): Promise<Boolean>
-}
+const SALT = process.env.SALT
+const PEPPER = process.env.PEPPER
 
 const UserSchema = new mongoose.Schema({
 	username: {
@@ -35,7 +28,7 @@ const UserSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 UserSchema.pre('save', async function save(next) {
-	let user = this as UserDocument;
+	let user = this;
 	if (!user.isModified('password')) return next();
 	try {
 		user.password = await bcrypt.hash(user.password + PEPPER, Number(SALT));
