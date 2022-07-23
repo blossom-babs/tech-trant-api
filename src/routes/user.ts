@@ -1,4 +1,4 @@
-import UserModel, { UserDocument } from "../models/user.model";
+import UserModel from "../models/user.model";
 import { Request, Response, Application } from "express";
 import bcrypt from 'bcrypt'
 
