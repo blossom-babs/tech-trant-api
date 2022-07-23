@@ -2,7 +2,7 @@ import { Request, Response, Application } from 'express';
 import mongoose from 'mongoose';
 import { PostModel, UserModel } from '../models';
 import app from '../app';
-import { getPostHandler, getPostsHandler } from '../controller';
+import { getPostHandler, getPostsHandler } from '../controller/post.controller';
 
 // create post
 const create = async (req: Request, res: Response) => {
