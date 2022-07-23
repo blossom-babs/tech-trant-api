@@ -1,3 +1,3 @@
-import { getPostHandler } from './post.controller';
+import { getPostHandler, getPostsHandler } from './post.controller';
 
-export { getPostHandler };
+export { getPostHandler, getPostsHandler };

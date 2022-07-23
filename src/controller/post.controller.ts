@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Post } from '../models';
 
 // get all posts
-const getPostHandler = async (req: Request, res: Response) => {
+const getPostsHandler = async (req: Request, res: Response) => {
 	let posts;
 	try {
 		const category = req.query.category;
@@ -17,4 +17,14 @@ const getPostHandler = async (req: Request, res: Response) => {
 	}
 };
 
-export { getPostHandler };
+// get single post
+const getPostHandler = async (req: Request, res: Response) => {
+	try {
+		const post = await Post.findOne({ _id: req.params.postId });
+		res.status(200).json(post);
+	} catch (error) {
+		res.status(500).json(error);
+	}
+};
+
+export { getPostsHandler, getPostHandler };

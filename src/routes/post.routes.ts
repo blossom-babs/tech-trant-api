@@ -2,7 +2,7 @@ import { Request, Response, Application } from 'express';
 import mongoose from 'mongoose';
 import { Post, User } from '../models';
 import app from '../app';
-import { getPostHandler } from '../controller';
+import { getPostHandler, getPostsHandler } from '../controller';
 
 // create post
 const create = async (req: Request, res: Response) => {
@@ -40,15 +40,6 @@ const remove = async (req: Request, res: Response) => {
 	}
 };
 
-// get single post
-const post = async (req: Request, res: Response) => {
-	try {
-		const post = await Post.findOne({ _id: req.params.postId });
-		res.status(200).json(post);
-	} catch (error) {
-		res.status(500).json(error);
-	}
-};
 
 // update post
 const update = async (req: Request, res: Response) => {
@@ -73,9 +64,9 @@ const update = async (req: Request, res: Response) => {
 };
 
 const PostRoute = (app: Application) => {
-	app.get('/api/v1/posts', getPostHandler);
+	app.get('/api/v1/posts', getPostsHandler);
+	app.get('/api/v1/post/:postId', getPostHandler);
 	app.post('/api/v1/posts', create);
-	app.get('/api/v1/post/:postId', post);
 	app.delete('/api/v1/post/:postId', remove);
 	app.put('/api/v1/post/:postId', update);
 };

@@ -1,7 +1,7 @@
 import { Application } from "express";
 import AuthRoute from "./auth";
 import UploadRouter from "./fileUpload";
-import PostRoute from "./post";
+import PostRoute from "./post.routes";
 import UserRoute from "./user";
 
 const IndexRoute = (app: Application) => {
