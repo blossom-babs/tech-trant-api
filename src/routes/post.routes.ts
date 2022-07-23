@@ -1,15 +1,15 @@
 import { Request, Response, Application } from 'express';
 import mongoose from 'mongoose';
-import { Post, User } from '../models';
+import { PostModel, UserModel } from '../models';
 import app from '../app';
 import { getPostHandler, getPostsHandler } from '../controller';
 
 // create post
 const create = async (req: Request, res: Response) => {
-	const user = await User.findById(req.body.userId);
+	const user = await UserModel.findById(req.body.userId);
 	const category = req.body.categories.split(',');
 	try {
-		const data = new Post({
+		const data = new PostModel({
 			title: req.body.title,
 			description: req.body.description,
 			author: user.username,
@@ -25,7 +25,7 @@ const create = async (req: Request, res: Response) => {
 
 // delete post
 const remove = async (req: Request, res: Response) => {
-	const post = await Post.findOne({ _id: req.params.postId });
+	const post = await PostModel.findOne({ _id: req.params.postId });
 	if (post.author !== req.body.author) {
 		res
 			.status(401)
@@ -43,7 +43,7 @@ const remove = async (req: Request, res: Response) => {
 
 // update post
 const update = async (req: Request, res: Response) => {
-	const post = await Post.findOne({ _id: req.params.postId });
+	const post = await PostModel.findOne({ _id: req.params.postId });
 	if (post.author !== req.body.author) {
 		res
 			.status(401)
@@ -52,7 +52,7 @@ const update = async (req: Request, res: Response) => {
 	}
 	try {
 		req.body.categories = req.body.categories.split(',');
-		const updatedPost = await Post.findByIdAndUpdate(
+		const updatedPost = await PostModel.findByIdAndUpdate(
 			req.params.postId,
 			{ $set: req.body },
 			{ new: true }

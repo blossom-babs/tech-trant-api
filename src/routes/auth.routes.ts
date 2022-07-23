@@ -24,7 +24,6 @@ const login = async (req: Request, res: Response) => {
 }
 
 const AuthRoute = (app: Application) => {
-  app.post('/api/v1/register', register)
   app.post('/api/v1/login', login)
 }
 

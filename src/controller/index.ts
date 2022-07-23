@@ -1,3 +1,4 @@
+import { registerUser } from './auth.controller';
 import { getPostHandler, getPostsHandler } from './post.controller';
 
-export { getPostHandler, getPostsHandler };
+export { registerUser, getPostHandler, getPostsHandler };

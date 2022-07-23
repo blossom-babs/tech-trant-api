@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Post } from '../models';
+import { PostModel } from '../models';
 
 // get all posts
 const getPostsHandler = async (req: Request, res: Response) => {
@@ -7,9 +7,9 @@ const getPostsHandler = async (req: Request, res: Response) => {
 	try {
 		const category = req.query.category;
 		if (category) {
-			posts = await Post.find({ categories: { $in: [category] } });
+			posts = await PostModel.find({ categories: { $in: [category] } });
 		} else {
-			posts = await Post.find();
+			posts = await PostModel.find();
 		}
 		res.status(200).json(posts);
 	} catch (error) {
@@ -20,7 +20,7 @@ const getPostsHandler = async (req: Request, res: Response) => {
 // get single post
 const getPostHandler = async (req: Request, res: Response) => {
 	try {
-		const post = await Post.findOne({ _id: req.params.postId });
+		const post = await PostModel.findOne({ _id: req.params.postId });
 		res.status(200).json(post);
 	} catch (error) {
 		res.status(500).json(error);
