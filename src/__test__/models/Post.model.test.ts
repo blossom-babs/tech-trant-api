@@ -1,4 +1,4 @@
-import { Post } from "../../models"
+import { PostModel } from "../../models"
 import { dropCollections, dropDatabase, setUp } from '../setup/db';
 
 const postData = {
@@ -21,7 +21,7 @@ afterEach(async () => {
 
 describe.skip('Post model', () => {
   it('create and saves post', async() => {
-    const post = new Post(postData)
+    const post = new PostModel(postData)
     const data = await post.save()
     expect(data._id).toBeDefined()
     expect(data.categories.length).toBe(2)

@@ -1,4 +1,4 @@
-import { Category } from "../../models"
+import { CategoryModel } from "../../models"
 import { dropCollections, dropDatabase, setUp } from '../setup/db';
 
 const categoryData = {
@@ -16,7 +16,7 @@ afterEach(async () => {
 
 describe.skip('Category model', () => {
   it('create and saves category', async () => {
-    const category = new Category(categoryData)
+    const category = new CategoryModel(categoryData)
     const data = await category.save()
     expect(data._id).toBeDefined()
     expect(data.name).toBe(categoryData.name)

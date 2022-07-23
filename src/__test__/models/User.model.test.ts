@@ -1,7 +1,7 @@
-import { User } from "../../models"
+import { UserModel } from "../../models"
 import { dropCollections, dropDatabase, setUp } from '../setup/db';
 
-const userData = {
+const userPayload = {
   username: "Seal",
   email: "seal@gmail.com",
   password: "eal1",
@@ -19,7 +19,7 @@ afterEach(async () => {
 
 describe.skip('User model', () => {
   it('create and saves user ', async () => {
-    const data = new User(userData)
+    const data = new UserModel(userPayload)
     const user = await data.save()
     expect(user._id).toBeDefined()
     expect(user.email).toBe(data.email)
@@ -27,7 +27,7 @@ describe.skip('User model', () => {
   })
 
   it('field not defined in the schema should be undefined', async () => {
-    const data = new User(userData)
+    const data = new UserModel(userPayload)
     const user = await data.save()
     expect(user._id).toBeDefined()
     expect(user.hobby).toBeUndefined()
