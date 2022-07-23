@@ -1,8 +1,27 @@
 import { Request, Response } from 'express';
-import { PostModel } from '../models';
+import { UserModel, PostModel } from '../models';
+
+// create post
+const createPost = async (req: Request, res: Response) => {
+	const user = await UserModel.findById(req.body.userId);
+	const category = req.body.categories.split(',');
+	try {
+		const data = new PostModel({
+			title: req.body.title,
+			description: req.body.description,
+			author: user.username,
+			photo: req.body.photo,
+			categories: category
+		});
+		const post = await data.save();
+		res.status(200).json(post);
+	} catch (error) {
+		res.status(500).json(error);
+	}
+};
 
 // get all posts
-const getPostsHandler = async (req: Request, res: Response) => {
+const getPosts = async (req: Request, res: Response) => {
 	let posts;
 	try {
 		const category = req.query.category;
@@ -18,7 +37,7 @@ const getPostsHandler = async (req: Request, res: Response) => {
 };
 
 // get single post
-const getPostHandler = async (req: Request, res: Response) => {
+const getPost = async (req: Request, res: Response) => {
 	try {
 		const post = await PostModel.findOne({ _id: req.params.postId });
 		res.status(200).json(post);
@@ -27,4 +46,44 @@ const getPostHandler = async (req: Request, res: Response) => {
 	}
 };
 
-export { getPostsHandler, getPostHandler };
+// delete post
+const deletePost = async (req: Request, res: Response) => {
+	const post = await PostModel.findOne({ _id: req.params.postId });
+	if (post.author !== req.body.author) {
+		res
+			.status(401)
+			.json({ Message: 'You are not authorized to perform this action' });
+		return;
+	}
+	try {
+		await post.delete();
+		res.status(200).json({ Message: 'Post deleted' });
+	} catch (error) {
+		res.status(500).json(error);
+	}
+};
+
+// update post
+const updatePost = async (req: Request, res: Response) => {
+	const post = await PostModel.findOne({ _id: req.params.postId });
+	if (post.author !== req.body.author) {
+		res
+			.status(401)
+			.json({ Message: 'You are not authorized to perform this action' });
+		return;
+	}
+	try {
+		req.body.categories = req.body.categories.split(',');
+		const updatedPost = await PostModel.findByIdAndUpdate(
+			req.params.postId,
+			{ $set: req.body },
+			{ new: true }
+		);
+		res.status(200).json(updatedPost);
+	} catch (error) {
+		res.status(500).json(error);
+	}
+};
+
+
+export { createPost, getPosts, getPost, deletePost, updatePost };
