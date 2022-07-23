@@ -1,5 +1,5 @@
 import { Application } from "express";
-import AuthRoute from "./auth";
+import AuthRoute from "./auth.routes";
 import UploadRouter from "./fileUpload";
 import PostRoute from "./post.routes";
 import UserRoute from "./user";

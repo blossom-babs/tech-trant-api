@@ -1,5 +1,5 @@
 import { Post } from "../../models"
-import { dropCollections, dropDatabase, setUp } from '../../setup/db';
+import { dropCollections, dropDatabase, setUp } from '../setup/db';
 
 const postData = {
   title: "Leetcode 1",

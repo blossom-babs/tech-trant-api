@@ -1,5 +1,5 @@
 import { User } from "../../models"
-import { dropCollections, dropDatabase, setUp } from '../../setup/db';
+import { dropCollections, dropDatabase, setUp } from '../setup/db';
 
 const userData = {
   username: "Seal",

@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import app from "../../app"
-import { setUp, dropCollections, dropDatabase } from '../../setup/db';
+import { setUp, dropCollections, dropDatabase } from '../setup/db';
 
 describe(('Post'), () => {
   beforeEach(async () => {
