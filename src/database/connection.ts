@@ -1,9 +1,15 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 dotenv.config();
 
-const connectDB = (url: string) => {
-  return mongoose.connect(url)
-}
+const connectDB = () => {
+	try {
+		return mongoose
+			.connect(process.env.MONGO_URL as string)
+			.then(() => console.log('Server is connected to the db'));
+	} catch (error) {
+		console.log(error);
+	}
+};
 
-export default connectDB
+export default connectDB;
