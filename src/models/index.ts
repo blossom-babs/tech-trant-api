@@ -1,5 +1,5 @@
-import Category from "./category.model.";
-import Post from "./post.model";
-import User from "./user.model";
+import CategoryModel from "./category.model.";
+import PostModel from "./post.model";
+import UserModel from "./user.model";
 
-export {User, Category, Post}
+export {UserModel, CategoryModel, PostModel}
