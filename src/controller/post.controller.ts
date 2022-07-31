@@ -5,6 +5,7 @@ import { UserModel, PostModel } from '../models';
 const createPost = async (req: Request, res: Response) => {
 	const user = await UserModel.findById(req.body.userId);
 	const category = req.body.categories.split(',');
+	console.log(req.body)
 	try {
 		const data = new PostModel({
 			title: req.body.title,
