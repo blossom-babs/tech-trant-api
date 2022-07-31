@@ -1,12 +1,16 @@
 import { Request, response, Response } from 'express';
 import { CategoryModel } from '../models';
 
-
 // return all the categories
 const getCategories = async (req: Request, res: Response) => {
   try {
+    let data = []
     const categories = await CategoryModel.find()
-    res.status(200).json(categories)
+    for (let item of categories) {
+      const { name } = item._doc
+      data.push(name)
+    }
+    res.status(200).json(data)
   } catch (error) {
     res.status(500).json(error)
   }
@@ -19,7 +23,8 @@ const addCategory = async (req: Request, res: Response) => {
       name: req.body.category
     })
     const category = await data.save()
-    res.status(200).json(category)
+    const { name } = category._doc
+    res.status(200).json(name)
   } catch (error) {
     res.status(500).json(error)
   }
